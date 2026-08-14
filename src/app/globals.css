@@ -1,8 +1,8 @@
 @import "tailwindcss";
-@import "tailwindcss/preflight";
+/* @import "tailwindcss/preflight";
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss/utilities"; */
 
 :root {
   /* Colors — approximated from reference images, swap with exact values if you have them */
