@@ -1,22 +1,68 @@
-// src/app/page.tsx (temporary test — will be replaced in step 7)
+// src/app/page.tsx
 "use client";
 
 import { useApiData } from "@/hooks/useApiData";
-import { useEffect } from "react";
+import FeatureSection from "@/components/FeatureSection";
+import CostSavingsCard from "@/components/CostSavingCard";
 
 export default function Home() {
-  const { data, isLoading, isError, error, isFetching } = useApiData();
-
-  useEffect(() => {
-    console.log({ data, isLoading, isError, error, isFetching });
-  }, [data, isLoading, isError, error, isFetching]);
-
-  if (isLoading) return <main>Loading...</main>;
-  if (isError) return <main>Error: {(error as Error).message}</main>;
+  const { data, isLoading, isError, error, refetch, isFetching } = useApiData();
 
   return (
-    <main>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+    <main className="min-h-screen bg-[var(--color-bg-primary)]">
+      {isLoading && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="flex min-h-screen flex-col items-center justify-center gap-3"
+        >
+          <div
+            className="h-8 w-8 animate-spin rounded-full border-2 border-transparent"
+            style={{
+              borderTopColor: "var(--color-accent-primary)",
+              borderRightColor: "var(--color-accent-primary)",
+            }}
+          />
+          <span className="text-sm text-[var(--color-text-muted)]">
+            Loading resource data…
+          </span>
+        </div>
+      )}
+
+      {isError && (
+        <div
+          role="alert"
+          className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center"
+        >
+          <p className="text-sm font-medium text-[var(--color-text-primary)]">
+            Couldn&apos;t load resource data.
+          </p>
+          <p className="text-xs text-[var(--color-text-muted)]">
+            {(error as Error)?.message ?? "Something went wrong."}
+          </p>
+          <button
+            onClick={() => refetch()}
+            className="rounded-[var(--radius-full)] border px-4 py-2 text-sm font-semibold text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-hexagon-muted)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ borderColor: "var(--color-border-primary)" }}
+          >
+            Try again
+          </button>
+        </div>
+      )}
+
+      {data && (
+        <>
+          <FeatureSection resourceMetrics={data.resourceMetrics} />
+          <CostSavingsCard savings={data.savings} />
+
+          {/* Subtle indicator for background refetches (e.g. after window refocus) */}
+          {isFetching && (
+            <span className="sr-only" role="status" aria-live="polite">
+              Refreshing data…
+            </span>
+          )}
+        </>
+      )}
     </main>
   );
 }

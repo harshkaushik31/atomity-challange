@@ -29,7 +29,7 @@ export default function Badge({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`inline-flex items-center rounded-[var(--radius-full)] border px-3 py-1 text-xs font-semibold tracking-wide uppercase ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center rounded-md border px-3 py-1 text-xs font-semibold tracking-wide uppercase ${variantStyles[variant]} ${className}`}
     >
       {label}
     </motion.span>

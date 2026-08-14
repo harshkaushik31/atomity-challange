@@ -4,6 +4,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
 
+
 :root {
   /* Colors — approximated from reference images, swap with exact values if you have them */
   --color-bg-primary: #f5f6f5;
@@ -26,6 +27,9 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
 
+  /* Fluid spacing for section padding */
+  --space-section-block: clamp(3rem, 2rem + 4vw, 6rem);
+
   /* Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.75rem;
@@ -34,6 +38,13 @@
 
   /* Font */
   --font-sans: var(--font-geist-sans, "Inter", system-ui, sans-serif);
+
+  /* Fluid type scale */
+  --font-size-sm: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --font-size-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+  --font-size-lg: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
+  --font-size-2xl: clamp(1.5rem, 1.3rem + 1.2vw, 2.25rem);
 }
 
 [data-theme="dark"] {
@@ -56,4 +67,26 @@ body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
+}
+
+/* Keyboard focus states — applies to every interactive element
+   (buttons, links, toggles) without needing per-component classes */
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* CSS-level safety net: catches any plain CSS transition/animation
+   (e.g. Tailwind's hover:bg-* utilities) that Framer Motion's
+   usePrefersReducedMotion hook doesn't touch */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

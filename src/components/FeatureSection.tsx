@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import ProviderNode from "./ProviderNode";
 import BarChart, { BarChartDatum } from "./BarChart";
+import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
 
 interface FeatureSectionProps {
   resourceMetrics: BarChartDatum[];
@@ -21,7 +22,13 @@ function ProviderLogo({ label, color }: { label: string; color: string }) {
 
 // A single dotted connector line drawn between a corner node and the
 // center card, using an SVG path so it scales with the layout.
-function Connector({ corner }: { corner: "tl" | "tr" | "bl" | "br" }) {
+function Connector({
+  corner,
+  prefersReducedMotion,
+}: {
+  corner: "tl" | "tr" | "bl" | "br";
+  prefersReducedMotion: boolean;
+}) {
   const isTop = corner === "tl" || corner === "tr";
   const isLeft = corner === "tl" || corner === "bl";
 
@@ -52,20 +59,31 @@ function Connector({ corner }: { corner: "tl" | "tr" | "bl" | "br" }) {
         stroke="var(--color-accent-primary)"
         strokeWidth="1.5"
         strokeDasharray="4 5"
-        initial={{ pathLength: 0, opacity: 0 }}
+        initial={
+          prefersReducedMotion
+            ? { pathLength: 1, opacity: 1 }
+            : { pathLength: 0, opacity: 0 }
+        }
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        transition={{
+          duration: prefersReducedMotion ? 0 : 0.8,
+          ease: "easeOut",
+          delay: prefersReducedMotion ? 0 : 0.2,
+        }}
       />
     </svg>
   );
 }
 
 export default function FeatureSection({ resourceMetrics }: FeatureSectionProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <section
       aria-labelledby="feature-heading"
-      className="@container relative mx-auto w-full max-w-5xl px-4 py-16 sm:py-24"
+      className="@container relative mx-auto w-full max-w-5xl px-4"
+      style={{ paddingBlock: "var(--space-section-block)" }}
     >
       <h2 id="feature-heading" className="sr-only">
         Multi-cloud resource optimization overview
@@ -96,19 +114,27 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
 
         {/* Center: bar chart card */}
         <div className="relative order-first @3xl:order-none">
-          <Connector corner="tl" />
-          <Connector corner="tr" />
-          <Connector corner="bl" />
-          <Connector corner="br" />
+          <Connector corner="tl" prefersReducedMotion={prefersReducedMotion} />
+          <Connector corner="tr" prefersReducedMotion={prefersReducedMotion} />
+          <Connector corner="bl" prefersReducedMotion={prefersReducedMotion} />
+          <Connector corner="br" prefersReducedMotion={prefersReducedMotion} />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={
+              prefersReducedMotion
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.95 }
+            }
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.5,
+              ease: "easeOut",
+            }}
             className="relative z-10 rounded-2xl bg-[var(--color-bg-card)] p-6 sm:p-8"
             style={{
-              boxShadow: "0 8px 24px color-mix(in srgb, var(--color-text-primary) 8%, transparent)",
+              boxShadow:
+                "0 8px 24px color-mix(in srgb, var(--color-text-primary) 8%, transparent)",
             }}
           >
             <BarChart data={resourceMetrics} />

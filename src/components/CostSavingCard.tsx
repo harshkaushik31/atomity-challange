@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { SavingsMetrics } from "@/hooks/useApiData";
 import AnimatedCard from "./AnimatedCard";
+import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
 
 interface CostSavingsCardProps {
   savings: SavingsMetrics;
@@ -14,23 +15,38 @@ interface MetricColProps {
   value: string;
   accent?: boolean;
   delay: number;
+  prefersReducedMotion: boolean;
 }
 
-function MetricColumn({ label, value, accent = false, delay }: MetricColProps) {
+function MetricColumn({
+  label,
+  value,
+  accent = false,
+  delay,
+  prefersReducedMotion,
+}: MetricColProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, ease: "easeOut", delay }}
+      transition={{
+        duration: prefersReducedMotion ? 0 : 0.4,
+        ease: "easeOut",
+        delay: prefersReducedMotion ? 0 : delay,
+      }}
       className="flex flex-col items-start gap-2 px-4 first:pl-0 sm:px-6"
     >
-      <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-text-muted)] sm:text-xs">
+      <span
+        className="font-semibold uppercase tracking-wider text-[var(--color-text-muted)]"
+        style={{ fontSize: "var(--font-size-sm)" }}
+      >
         {label}
       </span>
       <span
-        className="text-lg font-bold sm:text-xl"
+        className="font-bold"
         style={{
+          fontSize: "var(--font-size-xl)",
           color: accent ? "var(--color-accent-primary)" : "var(--color-text-primary)",
         }}
       >
@@ -69,10 +85,13 @@ function ClusterHexagon({
 }
 
 export default function CostSavingsCard({ savings }: CostSavingsCardProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <section
       aria-labelledby="savings-heading"
-      className="@container mx-auto w-full max-w-5xl px-4 py-16 sm:py-24"
+      className="@container mx-auto w-full max-w-5xl px-4"
+      style={{ paddingBlock: "var(--space-section-block)" }}
     >
       <h2 id="savings-heading" className="sr-only">
         Estimated cost savings breakdown
@@ -85,15 +104,36 @@ export default function CostSavingsCard({ savings }: CostSavingsCardProps) {
             className="flex flex-wrap gap-y-6 rounded-[var(--radius-lg)] border p-6 sm:p-8"
             style={{ borderColor: "var(--color-border-primary)" }}
           >
-            <MetricColumn label="CPU Usage" value={savings.cpuUsage} delay={0} />
-            <MetricColumn label="CPU Request" value={savings.cpuRequest} delay={0.08} />
-            <MetricColumn label="Memory Usage" value={savings.memoryUsage} delay={0.16} />
-            <MetricColumn label="Memory Request" value={savings.memoryRequest} delay={0.24} />
+            <MetricColumn
+              label="CPU Usage"
+              value={savings.cpuUsage}
+              delay={0}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+            <MetricColumn
+              label="CPU Request"
+              value={savings.cpuRequest}
+              delay={0.08}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+            <MetricColumn
+              label="Memory Usage"
+              value={savings.memoryUsage}
+              delay={0.16}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+            <MetricColumn
+              label="Memory Request"
+              value={savings.memoryRequest}
+              delay={0.24}
+              prefersReducedMotion={prefersReducedMotion}
+            />
             <MetricColumn
               label="Estimated Savings"
               value={savings.estimatedSavings}
               accent
               delay={0.32}
+              prefersReducedMotion={prefersReducedMotion}
             />
           </div>
         </AnimatedCard>
@@ -111,19 +151,31 @@ export default function CostSavingsCard({ savings }: CostSavingsCardProps) {
             y2="1"
             stroke="var(--color-accent-primary)"
             strokeWidth="1.5"
-            initial={{ pathLength: 0 }}
+            initial={prefersReducedMotion ? { pathLength: 1 } : { pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.6,
+              ease: "easeOut",
+              delay: prefersReducedMotion ? 0 : 0.3,
+            }}
           />
         </svg>
 
         {/* Right: hexagon cluster */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={
+            prefersReducedMotion
+              ? { opacity: 1, scale: 1 }
+              : { opacity: 0, scale: 0.9 }
+          }
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.5,
+            ease: "easeOut",
+            delay: prefersReducedMotion ? 0 : 0.2,
+          }}
           className="relative flex items-center justify-center rounded-3xl"
           style={{ inlineSize: "16rem", blockSize: "16rem" }}
         >

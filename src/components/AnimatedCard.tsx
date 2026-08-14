@@ -2,13 +2,13 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
+import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
 
 interface AnimatedCardProps {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "section" | "article";
 }
 
 export default function AnimatedCard({
@@ -16,15 +16,7 @@ export default function AnimatedCard({
   delay = 0,
   className = "",
 }: AnimatedCardProps) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", listener);
-    return () => mq.removeEventListener("change", listener);
-  }, []);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const variants: Variants = {
     hidden: prefersReducedMotion
@@ -37,7 +29,7 @@ export default function AnimatedCard({
       transition: {
         duration: prefersReducedMotion ? 0.2 : 0.6,
         ease: [0.16, 1, 0.3, 1], // easeOutExpo-ish, feels "physical"
-        delay,
+        delay: prefersReducedMotion ? 0 : delay,
       },
     },
   };
