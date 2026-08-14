@@ -37,6 +37,13 @@ export interface SavingsMetrics {
 export interface AtomityData {
   resourceMetrics: ResourceMetric[];
   savings: SavingsMetrics;
+  roi?: ROIData; // Optional ROI data, can be added later if needed
+}
+
+export interface ROIData {
+  monthlyCloudSpend: number;
+  activeClusters: number;
+  reductionRate: number;
 }
 
 // ---- Fetch function ----------------------------------------------------
@@ -75,7 +82,25 @@ async function fetchAtomityData(): Promise<AtomityData> {
     ).toFixed(1)}/mo`,
   };
 
-  return { resourceMetrics, savings };
+  const roi: ROIData = {
+  monthlyCloudSpend: Math.round(
+    (first?.price ?? 0) * 1000
+  ),
+  activeClusters: Math.max(
+    1,
+    Math.round((first?.stock ?? 0) / 10)
+  ),
+  reductionRate:
+    Math.min(
+      50,
+      Math.max(
+        30,
+        second?.discountPercentage ?? 35
+      )
+    ) / 100,
+};
+
+  return { resourceMetrics, savings, roi };
 }
 
 // ---- Hook ----------------------------------------------------------------

@@ -117,12 +117,36 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
     <section
       ref={sectionRef}
       aria-labelledby="feature-heading"
-      className="@container relative mx-auto w-full max-w-5xl px-4"
-      style={{ paddingBlock: "var(--space-section-block)" }}
+      className="w-full bg-[var(--color-bg-card)]"
     >
+        <div
+    ref={sectionRef}
+    className="@container relative mx-auto w-full max-w-5xl px-4"
+    style={{ paddingBlock: "var(--space-section-block)" }}
+  >
       <h2 id="feature-heading" className="sr-only">
         Multi-cloud resource optimization overview
       </h2>
+
+      <div
+        className="rounded-3xl border p-6 sm:p-8 "
+        style={{
+          backgroundColor: "color-mix(in srgb, var(--color-bg-hexagon-muted) 40%, var(--color-bg-primary))",
+          borderColor: "var(--color-border-primary)",
+        }}
+      >
+
+         <div className="flex flex-col items-center gap-2 sm:gap-3">
+            <span
+              className="text-xs font-bold uppercase tracking-widest"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              Managing Kubernetes Resources Across Clouds Made Easy with 
+            </span>
+            <h3 className="mt-1 text-lg font-bold sm:text-xl" style={{ color: "var(--color-text-primary)" }}>
+              Real-Time Visibility and Cost Optimization
+            </h3>
+          </div>
 
       {/* Measured connector overlay — real pixel coordinates, not guessed offsets */}
       {ready && (
@@ -241,6 +265,9 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
             muted
           />
         </div>
+      </div>
+
+      </div>
       </div>
     </section>
   );
