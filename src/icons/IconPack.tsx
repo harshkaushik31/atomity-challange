@@ -1,3 +1,6 @@
+// The Github, Twitter and other brand icons are not in the lucide react icon library, so I defined them here in a separate file. They are used in the footer of the main page.
+
+// github icon
 export function GithubIcon() {
   return (
     <svg
@@ -13,6 +16,7 @@ export function GithubIcon() {
   );
 }
 
+// twitter icon
 export function TwitterIcon() {
   return (
     <svg
@@ -26,7 +30,7 @@ export function TwitterIcon() {
   );
 }
 
-
+// linkedin icon
 export function LinkedInIcon() {
   return (
     <svg
@@ -36,6 +40,125 @@ export function LinkedInIcon() {
       aria-hidden="true"
     >
       <path d="M5.2 3.5a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4ZM3.3 9h3.8v11.7H3.3V9Zm6.2 0H13v1.6h.1c.5-.9 1.7-1.9 3.5-1.9 3.8 0 4.5 2.5 4.5 5.8v6.2h-3.8V15c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1v5.8H9.5V9Z" />
+    </svg>
+  );
+}
+
+// cloud icon
+export function CloudIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6.5 18a4.5 4.5 0 0 1-.4-8.98A5.5 5.5 0 0 1 16.9 7.1 4 4 0 0 1 17.5 15H17"
+        stroke="#FF9900"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.5 18h11"
+        stroke="#FF9900"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+// globe icon
+export function GlobeIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8.5" stroke="#0078D4" strokeWidth="1.8" />
+      <path
+        d="M4 12h16M12 3.5c2.5 2.3 2.5 15 0 17M12 3.5c-2.5 2.3-2.5 15 0 17"
+        stroke="#0078D4"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+// cluster icon
+export function ClusterIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle cx="8" cy="8" r="3" fill="#4285F4" />
+      <circle cx="16" cy="8" r="3" fill="#34A853" />
+      <circle cx="12" cy="16" r="3" fill="#FBBC05" />
+    </svg>
+  );
+}
+
+// server icon
+export function ServerIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect
+        x="4"
+        y="5"
+        width="16"
+        height="6"
+        rx="1.5"
+        stroke="var(--color-text-muted)"
+        strokeWidth="1.6"
+      />
+      <rect
+        x="4"
+        y="13"
+        width="16"
+        height="6"
+        rx="1.5"
+        stroke="var(--color-text-muted)"
+        strokeWidth="1.6"
+      />
+      <circle cx="7.5" cy="8" r="0.8" fill="var(--color-text-muted)" />
+      <circle cx="7.5" cy="16" r="0.8" fill="var(--color-text-muted)" />
+    </svg>
+  );
+}
+
+// arrow down icon
+export function ArrowDownIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 4v16M12 20l-6-6M12 20l6-6"
+        stroke="var(--color-accent-primary)"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

@@ -3,52 +3,7 @@
 
 import { motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
-
-// Simple inline icons, no icon library
-function CloudIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6.5 18a4.5 4.5 0 0 1-.4-8.98A5.5 5.5 0 0 1 16.9 7.1 4 4 0 0 1 17.5 15H17"
-        stroke="#FF9900"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M6.5 18h11" stroke="#FF9900" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="8.5" stroke="#0078D4" strokeWidth="1.8" />
-      <path d="M4 12h16M12 3.5c2.5 2.3 2.5 15 0 17M12 3.5c-2.5 2.3-2.5 15 0 17" stroke="#0078D4" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function ClusterIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="3" fill="#4285F4" />
-      <circle cx="16" cy="8" r="3" fill="#34A853" />
-      <circle cx="12" cy="16" r="3" fill="#FBBC05" />
-    </svg>
-  );
-}
-
-function ServerIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="4" y="5" width="16" height="6" rx="1.5" stroke="var(--color-text-muted)" strokeWidth="1.6" />
-      <rect x="4" y="13" width="16" height="6" rx="1.5" stroke="var(--color-text-muted)" strokeWidth="1.6" />
-      <circle cx="7.5" cy="8" r="0.8" fill="var(--color-text-muted)" />
-      <circle cx="7.5" cy="16" r="0.8" fill="var(--color-text-muted)" />
-    </svg>
-  );
-}
+import { CloudIcon, GlobeIcon, ClusterIcon, ServerIcon, ArrowDownIcon } from "@/icons/IconPack";
 
 const TRUST_LOGOS = [
   { icon: <CloudIcon />, label: "AWS EKS" },
@@ -136,15 +91,7 @@ export default function HeroSection() {
           }}
         >
           Explore Interactive Demo
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M12 4v16M12 20l-6-6M12 20l6-6"
-              stroke="var(--color-accent-primary)"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <ArrowDownIcon/>
         </motion.a>
 
         <motion.a

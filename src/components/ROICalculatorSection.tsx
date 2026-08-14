@@ -89,12 +89,7 @@ export default function ROISection() {
     error,
   } = useApiData();
 
-  /*
-   * The initial values come from the API.
-   *
-   * The user can then interact with the calculator and explore
-   * different spending/cluster scenarios.
-   */
+  // The initial values come from the API
   const initialMonthlySpend = data?.roi?.monthlyCloudSpend ?? 0;
   const initialClusters = data?.roi?.activeClusters ?? 0;
   const reductionRate = data?.roi?.reductionRate ?? 0;
@@ -144,9 +139,7 @@ export default function ROISection() {
         whileInView: { opacity: 1, y: 0 },
       };
 
-  /*
-   * Loading state
-   */
+// loading state
   if (isLoading) {
     return (
       <section
@@ -184,9 +177,7 @@ export default function ROISection() {
     );
   }
 
-  /*
-   * Error state
-   */
+// error state
   if (isError || !data) {
     return (
       <section

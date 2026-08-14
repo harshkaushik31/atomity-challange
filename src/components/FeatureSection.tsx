@@ -1,4 +1,3 @@
-// src/components/FeatureSection.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -37,9 +36,6 @@ interface ConnectorPathData {
   delay: number;
 }
 
-// Builds a horizontal-then-vertical elbow path with a rounded corner,
-// between two measured points. Works for connectors approaching the
-// card from either the left or right side.
 function buildElbowPath(x1: number, y1: number, x2: number, y2: number, r = 10): string {
   const dir = y2 > y1 ? 1 : -1;
   const goingRight = x2 > x1;
@@ -50,13 +46,6 @@ function buildElbowPath(x1: number, y1: number, x2: number, y2: number, r = 10):
 export default function FeatureSection({ resourceMetrics }: FeatureSectionProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // This is the ONE element that matters for the connector math: it's
-  // the visual card (rounded border, background), it's the element the
-  // absolutely-positioned <svg> overlay is actually anchored to (via
-  // `relative` below), and it's what we measure from in JS. Coordinate
-  // math and CSS positioning context must be the same element, or the
-  // two silently drift apart at different container widths — which is
-  // exactly what was happening before (see git history / PR notes).
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const awsRef = useRef<HTMLDivElement>(null);
@@ -75,8 +64,6 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
     const containerRect = container.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
 
-    // Card corner anchor points, inset slightly so lines meet the
-    // rounded corner rather than the exact geometric edge.
     const cardLeft = cardRect.left - containerRect.left;
     const cardRight = cardRect.right - containerRect.left;
     const cardTop = cardRect.top - containerRect.top + 14;
@@ -130,10 +117,6 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
           Multi-cloud resource optimization overview
         </h2>
 
-        {/* `relative` lives here now — this div is both the CSS
-            positioning context for the connector <svg> below AND the
-            element `measure()` reads getBoundingClientRect() from.
-            Same element for both jobs, so they can't drift apart. */}
         <div
           ref={containerRef}
           className="relative rounded-3xl border p-6 sm:p-8"
@@ -155,7 +138,6 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
             </h3>
           </div>
 
-          {/* Measured connector overlay — real pixel coordinates, not guessed offsets */}
           {ready && (
             <svg
               className="pointer-events-none absolute inset-0 hidden h-full w-full @3xl:block"

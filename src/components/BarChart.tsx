@@ -1,4 +1,3 @@
-// src/components/BarChart.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -6,12 +5,12 @@ import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
 
 export interface BarChartDatum {
   label: string;
-  value: number; // 0-100
+  value: number; 
 }
 
 interface BarChartProps {
   data: BarChartDatum[];
-  maxHeight?: number; // px, for the tallest bar
+  maxHeight?: number; 
 }
 
 export default function BarChart({ data, maxHeight = 180 }: BarChartProps) {

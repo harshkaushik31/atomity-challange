@@ -1,13 +1,9 @@
-// src/components/GovernanceSection.tsx
 "use client";
 
 import { motion } from "framer-motion";
 import GovernanceCard from "./GovernanceCard";
 import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
 
-/* -------------------------------------------------------------------------- */
-/* Icons                                                                      */
-/* -------------------------------------------------------------------------- */
 
 function AllocationIcon() {
   return (
@@ -63,10 +59,6 @@ function SecurityIcon() {
     </svg>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* Section                                                                     */
-/* -------------------------------------------------------------------------- */
 
 export default function GovernanceSection() {
   const prefersReducedMotion = usePrefersReducedMotion();

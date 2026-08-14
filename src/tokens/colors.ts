@@ -1,5 +1,3 @@
-// src/tokens/colors.ts
-
 export const tokens = {
   colors: {
     bgPrimary: "var(--color-bg-primary)",

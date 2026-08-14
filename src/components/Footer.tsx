@@ -1,4 +1,3 @@
-// src/components/Footer.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -125,9 +124,6 @@ function BrandMark() {
     />
   );
 }
-
-
-
 
 
 export default function Footer() {

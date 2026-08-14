@@ -1,4 +1,3 @@
-// src/hooks/usePrefersReducedMotion.ts
 "use client";
 
 import { useEffect, useState } from "react";

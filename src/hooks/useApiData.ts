@@ -1,9 +1,6 @@
-// src/hooks/useApiData.ts
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-
-// ---- Types -----------------------------------------------------------
 
 interface DummyProduct {
   id: number;
@@ -37,7 +34,7 @@ export interface SavingsMetrics {
 export interface AtomityData {
   resourceMetrics: ResourceMetric[];
   savings: SavingsMetrics;
-  roi?: ROIData; // Optional ROI data, can be added later if needed
+  roi?: ROIData; 
 }
 
 export interface ROIData {
@@ -46,7 +43,6 @@ export interface ROIData {
   reductionRate: number;
 }
 
-// ---- Fetch function ----------------------------------------------------
 
 const RESOURCE_LABELS = ["CPU", "GPU", "RAM", "PV", "Network", "Cloud"] as const;
 
@@ -59,15 +55,13 @@ async function fetchAtomityData(): Promise<AtomityData> {
 
   const data: DummyProductsResponse = await res.json();
 
-  // Map product ratings (0-5 scale) onto bar heights (0-100 scale)
-  // to drive the CPU/GPU/RAM/PV/Network/Cloud bars in the diagram.
+  
   const resourceMetrics: ResourceMetric[] = data.products.map((product, i) => ({
     label: RESOURCE_LABELS[i] ?? `Metric ${i + 1}`,
     value: Math.round((product.rating / 5) * 100),
   }));
 
-  // Derive the savings-card numbers from a couple of product fields
-  // so they still feel "data-driven" rather than hardcoded.
+  
   const first = data.products[0];
   const second = data.products[1];
 
@@ -103,7 +97,6 @@ async function fetchAtomityData(): Promise<AtomityData> {
   return { resourceMetrics, savings, roi };
 }
 
-// ---- Hook ----------------------------------------------------------------
 
 export function useApiData() {
   return useQuery({

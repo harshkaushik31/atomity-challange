@@ -1,4 +1,3 @@
-// src/components/ProviderNode.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -122,8 +121,6 @@ function Hexagon({ filled, icon = "none", x, y, size = 2.25 }: HexagonCell) {
   );
 }
 
-// forwardRef targets the heptagon box specifically (not the label
-// underneath), since that's the point connector lines should measure to.
 const ProviderNode = forwardRef<HTMLDivElement, ProviderNodeProps>(function ProviderNode(
   { name, logo, cells, delay = 0, muted = false },
   ref

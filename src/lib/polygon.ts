@@ -1,14 +1,3 @@
-/**
- * Generates an SVG path `d` string for a regular N-sided polygon,
- * optionally with rounded corners. A plain <polygon points="..."> can't
- * round corners — that requires replacing each sharp vertex with a
- * curve between two points pulled back along the adjacent edges.
- *
- * Pass cornerRadius=0 for sharp corners (a plain straight-edge polygon,
- * e.g. the outer heptagon boundary); pass a positive value for the
- * rounded-corner look (e.g. the small cluster hexagons).
- */
-
 type Point = [number, number];
 
 function sub(a: Point, b: Point): Point {
@@ -42,14 +31,6 @@ function polygonVertices(
   });
 }
 
-/**
- * @param sides number of sides — 6 for a hexagon, 7 for a heptagon, etc.
- * @param cornerRadius how far each corner is pulled back before
- * curving; 0 gives sharp corners. Keep well under half the edge length
- * or adjacent corners will overlap and distort the shape.
- * @param rotationDeg rotates the whole polygon; -90 puts a vertex at
- * the top (point-up), 0 for the default flat-right-vertex orientation.
- */
 export function roundedPolygonPath(
   cx: number,
   cy: number,
@@ -62,7 +43,6 @@ export function roundedPolygonPath(
   const n = points.length;
 
   if (cornerRadius <= 0) {
-    // Sharp corners — just connect the vertices directly.
     const [first, ...rest] = points;
     const commands = [
       `M ${first[0].toFixed(2)} ${first[1].toFixed(2)}`,
@@ -90,8 +70,6 @@ export function roundedPolygonPath(
         ? `M ${cornerStart[0].toFixed(2)} ${cornerStart[1].toFixed(2)}`
         : `L ${cornerStart[0].toFixed(2)} ${cornerStart[1].toFixed(2)}`
     );
-    // Quadratic curve using the original sharp vertex as the control
-    // point — this is what produces the rounded corner.
     segments.push(
       `Q ${curr[0].toFixed(2)} ${curr[1].toFixed(2)} ${cornerEnd[0].toFixed(2)} ${cornerEnd[1].toFixed(2)}`
     );

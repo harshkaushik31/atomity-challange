@@ -1,4 +1,3 @@
-// src/components/AnimatedCard.tsx
 "use client";
 
 import { motion, Variants } from "framer-motion";
@@ -28,7 +27,7 @@ export default function AnimatedCard({
       scale: 1,
       transition: {
         duration: prefersReducedMotion ? 0.2 : 0.6,
-        ease: [0.16, 1, 0.3, 1], // easeOutExpo-ish, feels "physical"
+        ease: [0.16, 1, 0.3, 1],
         delay: prefersReducedMotion ? 0 : delay,
       },
     },

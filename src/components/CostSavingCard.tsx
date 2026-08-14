@@ -1,4 +1,3 @@
-// src/components/CostSavingsCard.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -118,7 +117,6 @@ function ClusterHexagon({
     <div
       className="relative"
       style={{
-        // Increased from 3rem / 2.75rem
         inlineSize: large ? "3.5rem" : "3.25rem",
         blockSize: large ? "3.5rem" : "3.25rem",
       }}
@@ -255,7 +253,7 @@ export default function CostSavingsCard({
           </div>
         </AnimatedCard>
 
-        {/* Connector line (desktop only) */}
+        {/* Connector line */}
         <svg
           className="hidden @3xl:block"
           style={{
@@ -310,13 +308,12 @@ export default function CostSavingsCard({
             blockSize: "19rem",
           }}
         >
-          {/* Outer polygon */}
+          {/* Outer polygon on the Right Side */}
           <svg
             viewBox="0 0 100 100"
             className="absolute inset-0 h-full w-full"
           >
             <path
-              // Increased polygon radius from 47 to 49
               d={roundedPolygonPath(50, 50, 49, 7, 4)}
               fill="none"
               stroke="var(--color-accent-primary)"

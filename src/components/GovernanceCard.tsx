@@ -1,4 +1,3 @@
-// src/components/GovernanceCard.tsx
 "use client";
 
 import { motion } from "framer-motion";
