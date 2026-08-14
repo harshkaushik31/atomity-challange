@@ -10,18 +10,30 @@ interface FeatureSectionProps {
   resourceMetrics: BarChartDatum[];
 }
 
-// Simple text-based provider "logos" — no external brand assets used,
-// per the "build everything yourself" rule.
-function ProviderLogo({ label, color }: { label: string; color: string }) {
+// Logo unit: optional colored brand mark + plain-text company name.
+// Pass brand="" to render just the name (used for Azure / On-Premise,
+// which don't have a separate short wordmark in the reference).
+function ProviderLogo({
+  brand,
+  fullName,
+  color,
+}: {
+  brand: string;
+  fullName: string;
+  color: string;
+}) {
   return (
-    <span className="text-base font-bold" style={{ color }}>
-      {label}
+    <span className="flex items-center gap-1.5 text-sm">
+      {brand && (
+        <span className="font-bold" style={{ color }}>
+          {brand}
+        </span>
+      )}
+      <span className="font-semibold text-[var(--color-text-primary)]">{fullName}</span>
     </span>
   );
 }
 
-// A single dotted connector line drawn between a corner node and the
-// center card, using an SVG path so it scales with the layout.
 function Connector({
   corner,
   prefersReducedMotion,
@@ -93,27 +105,30 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
         {/* Left column: AWS + GCP */}
         <div className="flex flex-row justify-around gap-6 @3xl:flex-col @3xl:justify-between @3xl:gap-24">
           <ProviderNode
-            name="aws"
-            logo={<ProviderLogo label="aws" color="#FF9900" />}
-            cells={[{ filled: false }, { filled: true }]}
+            name="AWS"
+            logo={<ProviderLogo brand="aws" fullName="aws" color="#FF9900" />}
+            cells={[
+              { filled: false, icon: "minus", x: 45, y: 32, size: 2 },
+              { filled: true, icon: "square", x: 62, y: 50, size: 2.25 },
+            ]}
             delay={0}
           />
           <ProviderNode
             name="Google Cloud"
-            logo={<ProviderLogo label="GCP" color="#4285F4" />}
+            logo={<ProviderLogo brand="GCP" fullName="Google Cloud" color="#4285F4" />}
             cells={[
-              { filled: false },
-              { filled: false },
-              { filled: true },
-              { filled: true },
-              { filled: true },
+              { filled: false, icon: "none", x: 38, y: 24, size: 1.9 },
+              { filled: false, icon: "none", x: 60, y: 24, size: 1.9 },
+              { filled: true, icon: "none", x: 30, y: 50, size: 2.1 },
+              { filled: true, icon: "none", x: 62, y: 50, size: 2.1 },
+              { filled: true, icon: "none", x: 45, y: 75, size: 2.1 },
             ]}
             delay={0.15}
           />
         </div>
 
         {/* Center: bar chart card */}
-        <div className="relative order-first @3xl:order-none">
+        <div className="relative order-first @3xl:order-none border-2 rounded-2xl border-[var(--color-accent-primary)]">
           <Connector corner="tl" prefersReducedMotion={prefersReducedMotion} />
           <Connector corner="tr" prefersReducedMotion={prefersReducedMotion} />
           <Connector corner="bl" prefersReducedMotion={prefersReducedMotion} />
@@ -145,21 +160,24 @@ export default function FeatureSection({ resourceMetrics }: FeatureSectionProps)
         <div className="flex flex-row justify-around gap-6 @3xl:flex-col @3xl:justify-between @3xl:gap-24">
           <ProviderNode
             name="Azure"
-            logo={<ProviderLogo label="Azure" color="#0078D4" />}
+            logo={<ProviderLogo brand="Azure" fullName="Azure" color="#0078D4" />}
             cells={[
-              { filled: false },
-              { filled: false },
-              { filled: false },
-              { filled: true },
+              { filled: false, icon: "none", x: 34, y: 24, size: 1.9 },
+              { filled: false, icon: "none", x: 60, y: 24, size: 1.9 },
+              { filled: false, icon: "none", x: 34, y: 50, size: 1.9 },
+              { filled: true, icon: "bars", x: 60, y: 65, size: 2.3 },
             ]}
             delay={0.15}
           />
           <ProviderNode
             name="On-Premise"
-            logo={<ProviderLogo label="On-Prem" color="var(--color-text-muted)" />}
-            cells={[{ filled: true }, { filled: true }]}
+            logo={<ProviderLogo brand="" fullName="On-Premise" color="var(--color-text-muted)" />}
+            cells={[
+              { filled: true, icon: "square", x: 32, y: 50, size: 2.1 },
+              { filled: true, icon: "square", x: 68, y: 50, size: 2.1 },
+            ]}
             delay={0.3}
-            muted
+            
           />
         </div>
       </div>
