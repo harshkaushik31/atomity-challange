@@ -1,11 +1,10 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import QueryProvider from "@/providers/QueryProvider";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Atomity — Cloud Cost Optimization",
+  title: "Atomity - Cloud Cost Optimization",
   description: "Frontend challenge submission",
 };
 
