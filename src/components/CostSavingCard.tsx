@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { SavingsMetrics } from "@/hooks/useApiData";
 import AnimatedCard from "./AnimatedCard";
 import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
-import { roundedPolygonPath } from "@/components/polygon";
+import { roundedPolygonPath } from "@/lib/polygon";
 
 interface CostSavingsCardProps {
   savings: SavingsMetrics;
