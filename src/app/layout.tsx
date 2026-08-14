@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import QueryProvider from "@/providers/QueryProvider";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Atomity — Cloud Cost Optimization",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Navbar/>
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
