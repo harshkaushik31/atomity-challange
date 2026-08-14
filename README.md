@@ -1,4 +1,4 @@
-# Atomity --- Frontend Engineering Challenge
+# Atomity - Frontend Engineering Challenge
 
 A responsive Next.js/React implementation of a cloud-optimization
 product experience, built around **real-time multi-cloud resource
