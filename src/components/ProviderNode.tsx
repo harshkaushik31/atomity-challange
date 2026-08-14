@@ -2,7 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 
 interface HexagonCell {
   filled: boolean;
@@ -25,9 +25,6 @@ function normalize(v: [number, number]): [number, number] {
   return [v[0] / len, v[1] / len];
 }
 
-// Generates a rounded-corner regular polygon path (works for hexagons
-// or heptagons depending on `sides`), since SVG <polygon> can't take
-// a border-radius directly.
 function roundedPolygonPath(sides: number, cornerRadius: number, startAngle = -90): string {
   const cx = 50;
   const cy = 50;
@@ -67,7 +64,6 @@ function roundedPolygonPath(sides: number, cornerRadius: number, startAngle = -9
 const INNER_HEX_PATH = roundedPolygonPath(6, 10);
 const OUTER_HEPTAGON_PATH = roundedPolygonPath(7, 6, -90 + 180 / 7);
 
-// --- Icon glyphs, built inline (no icon library) -----------------------
 function MinusGlyph() {
   return <rect x="35" y="47" width="30" height="6" rx="3" fill="var(--color-text-muted)" />;
 }
@@ -126,13 +122,12 @@ function Hexagon({ filled, icon = "none", x, y, size = 2.25 }: HexagonCell) {
   );
 }
 
-export default function ProviderNode({
-  name,
-  logo,
-  cells,
-  delay = 0,
-  muted = false,
-}: ProviderNodeProps) {
+// forwardRef targets the heptagon box specifically (not the label
+// underneath), since that's the point connector lines should measure to.
+const ProviderNode = forwardRef<HTMLDivElement, ProviderNodeProps>(function ProviderNode(
+  { name, logo, cells, delay = 0, muted = false },
+  ref
+) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -142,7 +137,8 @@ export default function ProviderNode({
       className="flex flex-col items-center gap-3"
     >
       <div
-        className={`relative ${muted ? "rounded-2xl bg-[var(--color-bg-hexagon-muted)] p-3" : ""}`}
+        ref={ref}
+        className={`relative ${muted ? "rounded-2xl bg-[var(--color-bg-hexagon-muted)] p-3 border-1 border-[var(--color-border-muted)] rounded-4xl" : ""}`}
         style={{ inlineSize: "9rem", blockSize: "9rem" }}
       >
         <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
@@ -166,4 +162,6 @@ export default function ProviderNode({
       <span className="sr-only">{name}</span>
     </motion.div>
   );
-}
+});
+
+export default ProviderNode;

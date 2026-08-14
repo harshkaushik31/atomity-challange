@@ -18,6 +18,7 @@
   --color-accent-primary-light: color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
 
   --color-border-primary: color-mix(in srgb, var(--color-accent-primary) 60%, transparent);
+  --color-border-muted: color-mix(in srgb, var(--color-accent-primary) 20%, transparent);
 
   /* Spacing scale */
   --space-xs: 0.25rem;

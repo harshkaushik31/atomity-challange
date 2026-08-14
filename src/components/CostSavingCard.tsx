@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { SavingsMetrics } from "@/hooks/useApiData";
 import AnimatedCard from "./AnimatedCard";
 import { usePrefersReducedMotion } from "@/hooks/usePreferReducedMotion";
+import { roundedPolygonPath } from "@/components/polygon";
 
 interface CostSavingsCardProps {
   savings: SavingsMetrics;
@@ -16,6 +17,42 @@ interface MetricColProps {
   accent?: boolean;
   delay: number;
   prefersReducedMotion: boolean;
+}
+
+interface ClusterNodeConfig {
+  filled: boolean;
+  angle: number; // degrees; 0 = right, 90 = down, 180 = left, -90/270 = up
+  radius: number; // % of container radius from center
+  large?: boolean;
+}
+
+const CLUSTER_NODES: ClusterNodeConfig[] = [
+  { filled: false, angle: -150, radius: 30 }, // upper-left
+  { filled: false, angle: -90, radius: 30 }, // top
+  { filled: false, angle: -30, radius: 30 }, // upper-right
+  { filled: true, angle: -210, radius: 30 }, // active, bottom
+];
+
+function ClusterLayout() {
+  return (
+    <div className="relative h-full w-full">
+      {CLUSTER_NODES.map((node, i) => {
+        const rad = (node.angle * Math.PI) / 180;
+        const left = 50 + node.radius * Math.cos(rad);
+        const top = 50 + node.radius * Math.sin(rad);
+
+        return (
+          <div
+            key={i}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${left}%`, top: `${top}%` }}
+          >
+            <ClusterHexagon filled={node.filled} large={node.large} />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 function MetricColumn({
@@ -72,12 +109,24 @@ function ClusterHexagon({
         blockSize: large ? "3rem" : "2.75rem",
       }}
     >
-      <svg viewBox="0 0 100 100" className="h-full w-full">
-        <polygon
-          points="50,3 93,25 93,75 50,97 7,75 7,25"
+      <svg viewBox="0 0 100 100" className="h-full w-full overflow-visible">
+        <defs>
+          <filter id="hexagon-shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow
+              dx="0"
+              dy="2"
+              stdDeviation="3"
+              floodColor="var(--color-shadow, rgba(0,0,0,0.15))"
+            />
+          </filter>
+        </defs>
+        <path
+          d={roundedPolygonPath(50, 50, 44, 6, 10)}
           fill={filled ? "var(--color-accent-primary)" : "var(--color-bg-card)"}
           stroke={filled ? "var(--color-accent-primary)" : "var(--color-bg-hexagon-muted)"}
           strokeWidth="3"
+          strokeLinejoin="round"
+          filter="url(#hexagon-shadow)"
         />
       </svg>
     </div>
@@ -180,19 +229,17 @@ export default function CostSavingsCard({ savings }: CostSavingsCardProps) {
           style={{ inlineSize: "16rem", blockSize: "16rem" }}
         >
           <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
-            <polygon
-              points="50,2 95,26 95,74 50,98 5,74 5,26"
+            <path
+              d={roundedPolygonPath(50, 50, 47, 7, 4)}
               fill="none"
               stroke="var(--color-accent-primary)"
               strokeWidth="1.5"
+              strokeLinejoin="round"
             />
           </svg>
-          <div className="relative z-10 grid grid-cols-2 gap-4 place-items-center">
-            <ClusterHexagon filled={false} />
-            <ClusterHexagon filled={false} />
-            <ClusterHexagon filled={false} />
-            <ClusterHexagon filled={true} large />
-          </div>
+          <div className="relative z-10 h-48 w-48">
+  <ClusterLayout />
+</div>
         </motion.div>
       </div>
     </section>
