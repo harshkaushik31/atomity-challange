@@ -1,12 +1,9 @@
 @import "tailwindcss";
-/* @import "tailwindcss/preflight";
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+
 
 
 :root {
-  /* Colors — approximated from reference images, swap with exact values if you have them */
+  /* Colors */
   --color-bg-primary: #f5f6f5;
   --color-bg-card: #ffffff;
   --color-bg-hexagon-muted: #e8eae9;
@@ -70,8 +67,7 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Keyboard focus states — applies to every interactive element
-   (buttons, links, toggles) without needing per-component classes */
+/* Keyboard focus states — applies to every interactive element (buttons, links, toggles) without needing per-component classes */
 :focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 2px;
