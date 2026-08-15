@@ -261,12 +261,6 @@ Provider-specific information is passed as props.
 
 Responsible for displaying resource utilization.
 
-The chart accepts structured data through props:
-
-``` ts
-BarChartDatum[]
-```
-
 This keeps the visualization independent from the API layer.
 
 ### `FeatureCard`
@@ -340,33 +334,6 @@ The application does not rely entirely on hardcoded dashboard values.
 API data is fetched through a dedicated data layer and then transformed
 into the structures expected by the visual components.
 
-For example, ROI values are derived from fetched records rather than
-being directly embedded inside the ROI component.
-
-A simplified transformation looks like:
-
-``` ts
-const roi: ROIData = {
-  monthlyCloudSpend: Math.round(
-    (first?.price ?? 0) * 1000
-  ),
-
-  activeClusters: Math.max(
-    1,
-    Math.round((first?.stock ?? 0) / 10)
-  ),
-
-  reductionRate:
-    Math.min(
-      50,
-      Math.max(
-        30,
-        second?.discountPercentage ?? 35
-      )
-    ) / 100,
-};
-```
-
 This keeps the presentation layer independent from the raw API response.
 
 ------------------------------------------------------------------------
@@ -412,10 +379,6 @@ Render sections
      ↓
 Reuse cached data on subsequent renders
 ```
-
-This follows the challenge requirement that navigation or component
-re-renders should not result in unnecessary repeated network requests.
-
 ------------------------------------------------------------------------
 
 # Animation Approach
