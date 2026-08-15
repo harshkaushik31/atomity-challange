@@ -1,5 +1,7 @@
 # Atomity - Frontend Engineering Challenge
 
+Live Link - https://atomity-challange.vercel.app/
+
 A responsive Next.js/React implementation of a cloud-optimization
 product experience, built around **real-time multi-cloud resource
 visibility, cost optimization, and ROI projection**.
@@ -31,7 +33,11 @@ dashboard readable and lightweight.
 
 ------------------------------------------------------------------------
 
-## Feature Chosen
+## Feature Chosen - B 0:45 - 0:55
+
+## References
+![alt text](<Screenshot 2026-08-13 160748.png>)
+![alt text](<Screenshot 2026-08-13 160804.png>)
 
 ### Multi-Cloud Resource Visibility & Cost Optimization
 
@@ -192,22 +198,26 @@ src/
 │   ├── FeatureSection.tsx
 │   ├── Footer.tsx
 │   ├── ProviderNode.tsx
-│   ├── ROISection.tsx
-│   └── ...
+│   ├── ROICalculatorSection.tsx
+|   ├── MainPageErrorState.tsx
+|   ├── MainPageLoadingState.tsx
+|   ├── GovernanceCard.tsx
+|   ├── GovernanceSection.tsx
+|   ├── Navbar.tsx
+│   └── HeroSection.tsx
 │
 ├── hooks/
 │   ├── useApiData.ts
 │   └── usePreferReducedMotion.ts
 │
-├── lib/
-│   ├── GithubIcon.tsx
-│   └── ...
+├── icons/
+│   └── IconPack.tsx
 │
 ├── tokens/
-│   └── ...
+│   └── color.ts
 │
-└── styles/
-    └── ...
+└── lib/
+    └── polygon.ts
 ```
 
 The exact structure may evolve as components are added, but the main
@@ -582,60 +592,7 @@ Instead of four separate implementations, they use the same
 The green visual language is centralized through CSS variables so the
 entire product can be restyled without modifying every component.
 
-------------------------------------------------------------------------
 
-# Tradeoffs
-
-### Dynamic connector measurement
-
-The SVG connectors require DOM measurement and a `ResizeObserver`.
-
-This adds some implementation complexity compared with static lines, but
-it provides much better alignment with responsive layouts.
-
-### Public API data
-
-The API used for the challenge does not represent real Kubernetes
-telemetry.
-
-The data is therefore treated as a source for realistic dynamic UI
-values rather than being presented as actual production cloud
-infrastructure data.
-
-### Scope
-
-The challenge recommends spending 6--8 hours on a polished feature
-rather than building a complete product.
-
-The implementation therefore focuses on visual quality, component
-architecture, animation, and data handling rather than building a full
-backend or authentication system.
-
-------------------------------------------------------------------------
-
-# What I Would Improve With More Time
-
-If this were taken beyond the challenge, the next improvements would be:
-
-1.  Replace the demonstration API with a real telemetry service.
-2.  Add real Kubernetes resource metrics.
-3.  Add interactive provider filtering.
-4.  Allow users to hover individual chart resources for detailed
-    metrics.
-5.  Add time-range controls such as:
-    -   24 hours
-    -   7 days
-    -   30 days
-6.  Add real cost breakdowns by cloud provider.
-7.  Add a persistent light/dark theme switch.
-8.  Add automated visual regression tests.
-9.  Add unit tests for ROI calculations and connector geometry.
-10. Improve keyboard interaction for any interactive visualization
-    controls.
-11. Add analytics to understand which parts of the dashboard users
-    interact with.
-12. Add a production telemetry/cache layer rather than relying on
-    demonstration API data.
 
 ------------------------------------------------------------------------
 
@@ -651,8 +608,8 @@ If this were taken beyond the challenge, the next improvements would be:
 Clone the repository:
 
 ``` bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd <PROJECT_DIRECTORY>
+git clone https://github.com/harshkaushik31/atomity-challange.git
+cd atomity-feature
 ```
 
 Install dependencies:
@@ -667,18 +624,6 @@ or:
 npm install
 ```
 
-## Environment Variables
-
-If the project uses environment variables for the API or deployment
-configuration, create:
-
-``` bash
-.env.local
-```
-
-and add the required values.
-
-Do not commit secrets or API keys to the repository.
 
 ## Development
 
@@ -720,47 +665,16 @@ pnpm start
 
 # Deployment
 
-The project is designed to be deployed using a modern Next.js hosting
-platform.
-
-Recommended:
-
--   Vercel
--   Netlify
--   Cloudflare Pages
+The project is deployed using a Vercel
 
 ## Live Demo
 
-**Live URL:** `<ADD_LIVE_DEMO_URL>`
+**Live URL:** `https://atomity-challange.vercel.app/`
 
 ## Repository
 
-**GitHub:** `<ADD_GITHUB_REPOSITORY_URL>`
+**GitHub:** `https://github.com/harshkaushik31/atomity-challange`
 
-------------------------------------------------------------------------
-
-# Challenge Requirements Checklist
-
-  Requirement                         Status
-  ----------------------------------- ------------
-  React / Next.js                     ✅
-  TypeScript                          ✅
-  Framer Motion / animation library   ✅
-  Tailwind CSS                        ✅
-  Custom-built components             ✅
-  API-driven data                     ✅
-  Loading / async state handling      ✅
-  Data caching / reuse                ✅
-  Design tokens                       ✅
-  Modern CSS                          ✅
-  Responsive desktop layout           ✅
-  Responsive tablet layout            ✅
-  Responsive mobile layout            ✅
-  Scroll-triggered animations         ✅
-  Reduced-motion support              ✅
-  Semantic HTML                       ✅
-  Public deployment                   ⬜ Add URL
-  Public GitHub repository            ⬜ Add URL
 
 ------------------------------------------------------------------------
 
@@ -768,18 +682,15 @@ Recommended:
 
 ### GitHub Repository
 
-`<ADD_GITHUB_REPOSITORY_URL>`
+`https://github.com/harshkaushik31/atomity-challange`
 
 ### Live Demo
 
-`<ADD_LIVE_DEMO_URL>`
+`https://atomity-challange.vercel.app/`
 
 ------------------------------------------------------------------------
 
 # Notes
-
-This project was built specifically for the Atomity Frontend Engineering
-Challenge.
 
 The implementation prioritizes:
 
@@ -802,5 +713,3 @@ documents the implementation against those goals.
 
 This project was created as part of a frontend engineering challenge.
 
-Unless otherwise specified, the source code is intended for evaluation
-and demonstration purposes.
