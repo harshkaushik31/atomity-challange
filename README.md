@@ -187,6 +187,7 @@ visual elements remain reusable and understandable.
 ``` text
 src/
 ├── app/
+│   ├── global.css
 │   ├── layout.tsx
 │   └── page.tsx
 │
