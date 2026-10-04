@@ -656,17 +656,17 @@ The project is deployed using a Vercel
 
 # Notes
 
-The implementation prioritizes:
+The implementation prioritises:
 
 -   Clear component architecture
 -   Dynamic data
 -   Animation quality
--   Responsive behavior
+-   Responsive behaviour
 -   Modern CSS
 -   Accessibility
 -   Product-oriented visual design
 
-The supplied challenge brief emphasizes focused scope, reusable
+The supplied challenge brief emphasises focused scope, reusable
 components, thoughtful animation, API-driven content, caching,
 responsive design, accessibility, and clear documentation. This README
 documents the implementation against those goals.
